@@ -45,18 +45,26 @@ function knight(start) {
     return true; 
   };
 
+  const logMoves = (moveList) => {
+    console.log(`You made it in ${moveList.length - 1} moves! \n`);
+    for (const move of moveList) {
+      console.log(`[${move}]\n`);
+    }
+  };
+
   const knightMoves = (end) => {
+    let foundMove = false;
     const queue = [];
     const startNode = space(start, [start]);
     queue.push(startNode);
-    let foundSpace = false;
-    while (foundSpace === false) {
+    while (foundMove === false) {
       const chessSquare = queue.shift();
       const moves = getMoves(chessSquare.value);
       for (const move of moves) {
         if (compareCoord(move, end)) {
           const knightMoves = chessSquare.route.concat([move]);
-          return knightMoves;
+          logMoves(knightMoves);
+          foundMove = true;
         }
         const spaceNode = space(move, chessSquare.route.concat([move]));
         queue.push(spaceNode);
@@ -69,5 +77,10 @@ function knight(start) {
   };
 }
 
-let bob = knight([0, 0]);
-console.log(bob.knightMoves([3,3]));
+let first = knight([0, 0]);
+let second = knight([3, 3]);
+first.knightMoves([3,3]);
+first.knightMoves([7,7]);
+second.knightMoves([4,3]);
+second.knightMoves([0,0]);
+
