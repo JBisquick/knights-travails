@@ -21,11 +21,25 @@ function knight(start) {
     }
     return true;
   };
+  
+  const getMoves = (space = start) => {
+    let moves = [];
+    for (const move of possibleMoves) {
+      const newMove = space.map(function (num, idx) {
+        return num + move[idx];
+      })
+      if (validateSpace(newMove)) {
+        moves.push(newMove);
+      }
+    }
+    console.log(moves);
+    return moves;
+  };
 
   return {
-    validateSpace
+    getMoves
   };
 }
 
 let bob = knight((0, 0));
-console.log(bob.validateSpace([4, 6]));
+console.log(bob.getMoves());
